@@ -93,6 +93,24 @@
                                                     <span class="font-medium">Organization structure</span>
                                                 </router-link>
                                             </li>
+
+                                            <!-- Line Chart -->
+                                            <li>
+                                                <router-link to="/components/line-chart" v-ripple
+                                                    class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
+                                                    <i class="pi pi-chart-line mr-2"></i>
+                                                    <span class="font-medium">Line Chart</span>
+                                                </router-link>
+                                            </li>
+
+                                            <!-- Scroll Animation -->
+                                            <li>
+                                                <router-link to="/components/scroll-animation" v-ripple
+                                                    class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
+                                                    <i class="pi pi-angle-double-down mr-2"></i>
+                                                    <span class="font-medium">Scroll Animation</span>
+                                                </router-link>
+                                            </li>
                                         </ul>
 
                                         <!-- Sign In Modal -->

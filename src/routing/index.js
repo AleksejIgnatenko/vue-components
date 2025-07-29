@@ -1,10 +1,11 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
 import TableView from '../pages/TableView.vue';
 import SettingsView from '../pages/SettingView.vue';
 import HomeView from '../pages/HomeView.vue';
 import ComponentsView from '../pages/ComponentsView.vue';
 import OrganizationStructure from '../components/OrganizationStructure.vue';
+import LineChart from '../components/LineChart.vue';
+import ScrollAnimation from '../components/ScrollAnimation.vue';
 
 const routes = [
     {
@@ -31,6 +32,16 @@ const routes = [
         path: '/components/organization-structure',
         name: 'OrganizationStructure',
         component: OrganizationStructure,
+    },
+    {
+        path: '/components/line-chart',
+        name: 'LineChart',
+        component: LineChart,
+    },
+    {
+        path: '/components/scroll-animation',
+        name: 'ScrollAnimation',
+        component: ScrollAnimation,
     },
 ];
 

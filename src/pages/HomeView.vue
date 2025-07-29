@@ -1,10 +1,7 @@
 <template>
     <div class="bg-surface-0 dark:bg-surface-950 px-6 md:px-12 lg:px-20 py-20 text-center">
 
-        <Loader v-if="isLoading" />
-
-        
-        <div v-else class="flex flex-col gap-6">
+        <div class="flex flex-col gap-6">
             <div class="flex flex-col items-center gap-4">
                 <div class="font-bold text-3xl leading-tight">
                     <span class="text-surface-900 dark:text-surface-0">One Product, </span>
@@ -90,17 +87,3 @@
         </div>
     </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import Loader from '../components/Loader.vue';
-
-// Реактивное состояние загрузки
-const isLoading = ref(true);
-
-onMounted(() => {
-    setTimeout(() => {
-        isLoading.value = false;
-    }, 2000);
-});
-</script>
