@@ -69,6 +69,21 @@
                         </div>
                     </div>
                 </router-link>
+
+                <!-- Image Compare -->
+                <router-link to="/components/image-compare">
+                    <div class="w-full sm:w-auto rounded-md p-4 max-w-xs">
+                        <span 
+                            class="mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-800 shadow mx-auto">
+                            <i class="pi pi-image !text-2xl lg:!text-3xl text-primary-500 dark:text-primary-400" />
+                        </span>
+                        <div class="flex flex-col gap-1">
+                            <div class="text-surface-900 dark:text-surface-0 text-xl font-medium leading-tight">
+                                Image Compare
+                            </div>
+                        </div>
+                    </div>
+                </router-link>
             </div>
         </div>
     </div>

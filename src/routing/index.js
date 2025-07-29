@@ -6,6 +6,7 @@ import ComponentsView from '../pages/ComponentsView.vue';
 import OrganizationStructure from '../components/OrganizationStructure.vue';
 import LineChart from '../components/LineChart.vue';
 import ScrollAnimation from '../components/ScrollAnimation.vue';
+import ImageCompare from '../components/ImageCompare.vue';
 
 const routes = [
     {
@@ -42,6 +43,11 @@ const routes = [
         path: '/components/scroll-animation',
         name: 'ScrollAnimation',
         component: ScrollAnimation,
+    },
+    {
+        path: '/components/image-compare',
+        name: 'ImageCompare',
+        component: ImageCompare,
     },
 ];
 

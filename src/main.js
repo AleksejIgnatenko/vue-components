@@ -8,6 +8,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import DialogService from 'primevue/dialogservice';
 import ToastService from 'primevue/toastservice';
 import Chart from 'primevue/chart';
+import ImageCompare from 'primevue/imagecompare';
 
 import AppState from "./plugins/appState.js";
 
@@ -34,6 +35,7 @@ app.use(ConfirmationService);
 app.use(ToastService);  
 app.use(DialogService);
 app.component('Chart', Chart);
+app.component('ImageCompare', ImageCompare);
 app.use(router);
 
 // Монтируем приложение
