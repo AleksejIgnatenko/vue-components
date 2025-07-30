@@ -22,25 +22,32 @@
                         <i class="pi pi-palette dark:text-white"></i>
                     </button>
                     <div
-                        class="absolute top-[2.5rem] left-0 hidden w-[16rem] p-3 bg-white dark:bg-surface-800 rounded-md shadow border border-surface-200 dark:border-surface-700 flex-col justify-start items-start gap-3.5 inline-flex origin-top z-10">
-                        <div class="flex-col justify-start items-start gap-2 inline-flex pr-4">
+                        class="absolute top-[2.5rem] left-0 hidden min-w-[12rem] max-w-[95vw] p-3 bg-white dark:bg-surface-800 rounded-md shadow border border-surface-200 dark:border-surface-700 flex-col justify-start items-start gap-3.5 inline-flex origin-top z-10"
+                        style="box-sizing: border-box;">
+                        <div class="flex-col justify-start items-start gap-2 inline-flex pr-2 w-full">
                             <span class="text-sm font-medium">Primary Colors</span>
-                            <div class="self-stretch justify-start items-start gap-2 inline-flex flex-wrap">
+                            <div
+                                class="w-full grid gap-2"
+                                :style="primaryGridStyle"
+                            >
                                 <button v-for="primaryColor of primaryColors" :key="primaryColor.name" type="button"
                                     :title="primaryColor.name" @click="updateColors('primary', primaryColor)"
-                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-5 h-5"
+                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-6 h-6 transition-all duration-100"
                                     :style="{
                                         backgroundColor: `${primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor.palette['500']}`,
                                         outlineColor: `${selectedPrimaryColor === primaryColor.name ? 'var(--p-primary-color)' : ''}`,
                                     }"></button>
                             </div>
                         </div>
-                        <div class="flex-col justify-start items-start gap-2 inline-flex pr-2">
+                        <div class="flex-col justify-start items-start gap-2 inline-flex pr-2 w-full">
                             <span class="text-sm font-medium">Surface Colors</span>
-                            <div class="self-stretch justify-start items-start gap-2 inline-flex">
+                            <div
+                                class="w-full grid gap-2"
+                                :style="surfaceGridStyle"
+                            >
                                 <button v-for="surface of surfaces" :key="surface.name" type="button"
                                     :title="surface.name" @click="updateColors('surface', surface)"
-                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-5 h-5"
+                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-6 h-6 transition-all duration-100"
                                     :style="{
                                         backgroundColor: `${surface.palette['500']}`,
                                         outlineColor: `${selectedSurfaceColor === surface.name ? 'var(--p-primary-color)' : ''}`,
@@ -69,11 +76,13 @@
 <script>
 import { $t, updatePreset, updateSurfacePalette } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
+import Material from '@primeuix/themes/material';
 import Lara from '@primeuix/themes/lara';
 import Nora from '@primeuix/themes/nora';
 
 const presets = {
     Aura,
+    Material,
     Lara,
     Nora,
 };
@@ -342,6 +351,22 @@ export default {
                         950: '#4c0519',
                     },
                 },
+                {
+                    name: 'cherry',
+                    palette: {
+                        50: '#fff0f5',
+                        100: '#ffe0ec',
+                        200: '#ffb3cf',
+                        300: '#ff80a6',
+                        400: '#ff4d7d',
+                        500: '#e6003d',
+                        600: '#b80031',
+                        700: '#8a0025',
+                        800: '#5c0019',
+                        900: '#2e000c',
+                        950: '#1a0007',
+                    },
+                },
             ],
             surfaces: [
                 {
@@ -364,7 +389,7 @@ export default {
                 {
                     name: 'gray',
                     palette: {
-                        0: '#ffffff',
+                        0: '#f9fafb',
                         50: '#f9fafb',
                         100: '#f3f4f6',
                         200: '#e5e7eb',
@@ -499,32 +524,62 @@ export default {
         },
         loadThemeSettings() {
             const data = localStorage.getItem('themeSwitcher');
-            if (data) {
-                const settings = JSON.parse(data);
-                if (settings.theme && this.presets.includes(settings.theme)) {
-                    this.$appState.theme = settings.theme;
+            if (!data) return;
+
+            const settings = JSON.parse(data);
+
+            const actions = [
+                {
+                    cond: () => settings.theme && this.presets.includes(settings.theme),
+                    exec: () => { this.$appState.theme = settings.theme; }
+                },
+                {
+                    cond: () => settings.selectedPrimaryColor,
+                    exec: () => { this.selectedPrimaryColor = settings.selectedPrimaryColor; }
+                },
+                {
+                    cond: () => settings.selectedSurfaceColor,
+                    exec: () => { this.selectedSurfaceColor = settings.selectedSurfaceColor; }
+                },
+                {
+                    cond: () => typeof settings.ripple === 'boolean',
+                    exec: () => { this.$primevue.config.ripple = settings.ripple; }
+                },
+                {
+                    cond: () => true,
+                    exec: () => {
+                        if (settings.dark) {
+                            document.documentElement.classList.add('p-dark');
+                            this.iconClass = 'pi-sun';
+                        } else {
+                            document.documentElement.classList.remove('p-dark');
+                            this.iconClass = 'pi-moon';
+                        }
+                    }
                 }
-                if (settings.selectedPrimaryColor) {
-                    this.selectedPrimaryColor = settings.selectedPrimaryColor;
-                }
-                if (settings.selectedSurfaceColor) {
-                    this.selectedSurfaceColor = settings.selectedSurfaceColor;
-                }
-                if (typeof settings.ripple === 'boolean') {
-                    this.$primevue.config.ripple = settings.ripple;
-                }
-                if (settings.dark) {
-                    document.documentElement.classList.add('p-dark');
-                    this.iconClass = 'pi-sun';
-                } else {
-                    document.documentElement.classList.remove('p-dark');
-                    this.iconClass = 'pi-moon';
-                }
-                this.applyTheme('primary', this.primaryColors.find(c => c.name === this.selectedPrimaryColor));
-                if (this.selectedSurfaceColor) {
-                    const surface = this.surfaces.find(s => s.name === this.selectedSurfaceColor);
-                    if (surface) this.applyTheme('surface', surface);
-                }
+            ];
+
+            actions.forEach(action => { if (action.cond()) action.exec(); });
+
+            const preset = presets[this.$appState.theme];
+            const surfacePalette = this.surfaces?.find(
+                s => s.name === this.selectedSurfaceColor
+            )?.palette;
+
+            $t()
+                .preset(preset)
+                .preset(this.getPresetExt())
+                .surfacePalette(surfacePalette)
+                .use({ useDefaultOptions: true });
+
+            const primaryColor = this.primaryColors.find(c => c.name === this.selectedPrimaryColor);
+            if (primaryColor) {
+                this.applyTheme('primary', primaryColor);
+            }
+
+            if (this.selectedSurfaceColor) {
+                const surface = this.surfaces.find(s => s.name === this.selectedSurfaceColor);
+                if (surface) this.applyTheme('surface', surface);
             }
         },
         onThemeToggler() {
@@ -694,11 +749,25 @@ export default {
                     };
                 }
             }
-        },
+        }
     },
     computed: {
         rippleActive() {
             return this.$primevue.config.ripple;
+        },
+        primaryGridStyle() {
+            return {
+                display: 'grid',
+                gridTemplateColumns: `repeat(10, minmax(0, 1fr))`,
+                width: '100%',
+            };
+        },
+        surfaceGridStyle() {
+            return {
+                display: 'grid',
+                gridTemplateColumns: `repeat(10, minmax(0, 1fr))`,
+                width: '100%',
+            };
         }
     }
 };
