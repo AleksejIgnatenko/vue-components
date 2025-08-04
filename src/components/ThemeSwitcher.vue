@@ -1,12 +1,15 @@
 <template>
-    <div class="flex flex-col items-start justify-start space-y-4 pt-4">
-        <div class="card inline-block p-2 bg-gray-100">
-            <ul class="flex list-none m-0 p-0 gap-2 items-center">
+    
+    <div class="flex flex-col w-full min-w-0 items-center justify-center space-y-2 pt-2">
+        <div
+            class="w-full p-1 flex justify-center"
+        >
+            <ul class="flex list-none m-0 p-0 gap-2 items-center justify-center w-full">
                 <li>
                     <button type="button"
-                        class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded"
+                        class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 rounded transition duration-200 hover:bg-gray-200 dark:hover:bg-surface-700 group"
                         @click="onThemeToggler">
-                        <i :class="`dark:text-white pi ${iconClass}`" />
+                        <i :class="`dark:text-white pi ${iconClass} transition duration-200 group-hover:scale-110 group-hover:text-primary`" />
                     </button>
                 </li>
                 <li class="relative">
@@ -18,51 +21,51 @@
                         leaveActiveClass: 'animate-fadeout',
                         hideOnOutsideClick: true,
                     }" type="button"
-                        class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 border border-surface-200 dark:border-surface-600 rounded">
-                        <i class="pi pi-palette dark:text-white"></i>
+                        class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 rounded transition duration-200 hover:bg-gray-200 dark:hover:bg-surface-700 group">
+                        <i class="pi pi-palette dark:text-white transition duration-200 group-hover:scale-110 group-hover:text-primary"></i>
                     </button>
                     <div
-                        class="absolute top-[2.5rem] left-0 hidden min-w-[12rem] max-w-[95vw] p-3 bg-white dark:bg-surface-800 rounded-md shadow border border-surface-200 dark:border-surface-700 flex-col justify-start items-start gap-3.5 inline-flex origin-top z-10"
+                        class="absolute bottom-[2rem] left-1/2 min-w-[12rem] max-w-[100vw] p-2 bg-white dark:bg-surface-800 rounded-t-md shadow flex-col justify-start items-start gap-2.5 inline-flex origin-bottom z-10"
                         style="box-sizing: border-box;">
-                        <div class="flex-col justify-start items-start gap-2 inline-flex pr-2 w-full">
+                        <div class="flex-col justify-start items-start gap-1 inline-flex pr-1 w-full">
                             <span class="text-sm font-medium">Primary Colors</span>
                             <div
-                                class="w-full grid gap-2"
+                                class="w-full grid gap-1"
                                 :style="primaryGridStyle"
                             >
                                 <button v-for="primaryColor of primaryColors" :key="primaryColor.name" type="button"
                                     :title="primaryColor.name" @click="updateColors('primary', primaryColor)"
-                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-6 h-6 transition-all duration-100"
+                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-6 h-6 transition-all duration-100 hover:scale-110 hover:outline-primary"
                                     :style="{
                                         backgroundColor: `${primaryColor.name === 'noir' ? 'var(--text-color)' : primaryColor.palette['500']}`,
                                         outlineColor: `${selectedPrimaryColor === primaryColor.name ? 'var(--p-primary-color)' : ''}`,
                                     }"></button>
                             </div>
                         </div>
-                        <div class="flex-col justify-start items-start gap-2 inline-flex pr-2 w-full">
+                        <div class="flex-col justify-start items-start gap-1 inline-flex pr-1 w-full">
                             <span class="text-sm font-medium">Surface Colors</span>
                             <div
-                                class="w-full grid gap-2"
+                                class="w-full grid gap-1"
                                 :style="surfaceGridStyle"
                             >
                                 <button v-for="surface of surfaces" :key="surface.name" type="button"
                                     :title="surface.name" @click="updateColors('surface', surface)"
-                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-6 h-6 transition-all duration-100"
+                                    class="outline outline-2 outline-offset-1 outline-transparent cursor-pointer p-0 rounded-[50%] w-6 h-6 transition-all duration-100 hover:scale-110 hover:outline-primary"
                                     :style="{
                                         backgroundColor: `${surface.palette['500']}`,
                                         outlineColor: `${selectedSurfaceColor === surface.name ? 'var(--p-primary-color)' : ''}`,
                                     }"></button>
                             </div>
                         </div>
-                        <div class="flex-col justify-start items-start gap-2 inline-flex w-full">
+                        <div class="flex-col justify-start items-start gap-1 inline-flex w-full">
                             <span class="text-sm font-medium">Preset</span>
                             <div
-                                class="inline-flex p-[0.28rem] items-start gap-[0.28rem] rounded-[0.71rem] border border-[#00000003] w-full">
+                                class="inline-flex p-[0.14rem] items-start gap-[0.14rem] rounded-[0.71rem] w-full">
                                 <SelectButton v-model="$appState.theme" @update:modelValue="onPresetChange"
                                     :options="presets" :unselectable="false" />
                             </div>
                         </div>
-                        <div class="inline-flex flex-col justify-start items-start gap-2 w-full pt-4 pb-2">
+                        <div class="inline-flex flex-col justify-start items-start gap-1 w-full pt-2">
                             <span class="text-sm font-medium m-0">Ripple Effect</span>
                             <ToggleSwitch :modelValue="rippleActive" @update:modelValue="onRippleChange" />
                         </div>
@@ -451,7 +454,7 @@ export default {
                         700: '#44403c',
                         800: '#292524',
                         900: '#1c1917',
-                        950: '#0c0a09',
+                        950: '#0c0a0a',
                     },
                 },
                 {

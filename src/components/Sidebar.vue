@@ -151,16 +151,17 @@
                     <div class="mt-auto">
                         <hr class="mb-4 mx-4 border-t border-0 border-surface-200 dark:border-surface-700" />
                         <a v-ripple
-                            class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
-                            <Avatar image="/img/IMG_20230824_221332.jpg" size="large" shape="circle" />
-                            <span class="font-bold">Name</span>
-                        </a>
-                    </div>
+                        class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
+                        <Avatar image="/img/IMG_20230824_221332.jpg" size="large" shape="circle" />
+                        <span class="font-bold">Name</span>
+                    </a>
                 </div>
-            </template>
+            </div>
+            <ThemeSwitcher />
+        </template>
         </Drawer>
         <Button icon="pi pi-bars" class="top-0" @click="sidebarVisible = true" />
-
+        
     </div>
     <SignInModal v-model:visible="signInModalVisible" />
 </template>
@@ -168,6 +169,7 @@
 <script setup>
 import SignInModal from "./SignInModal.vue";
 import { ref } from "vue";
+import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 const sidebarVisible = ref(false);
 const signInModalVisible = ref(false);

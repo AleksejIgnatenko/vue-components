@@ -1,3 +1,3 @@
 <template>
-    <ThemeSwitcher />
+    <!-- <ThemeSwitcher /> -->
 </template>
