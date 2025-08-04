@@ -14,7 +14,7 @@
                                     d="M30.69 4.21L24.37 4.81L22.57 0.69L22.86 0H26.48L30.69 4.21ZM23.75 5.67L22.66 3.08L18.05 14.24V17.14H19.7H20.03H20.16H20.2L24.1 15.7L30.11 5.19L23.75 5.67ZM4.21002 4.21L10.53 4.81L12.33 0.69L12.05 0H8.43002L4.22002 4.21H4.21002ZM21.9 17.4L20.6 18.2H14.3L13 17.4L12.4 18.2L12.42 18.23L17.45 26.8L22.48 18.23L22.5 18.2L21.9 17.4ZM4.79002 5.19L10.8 15.7L14.7 17.14H14.74H15.2H16.85V14.24L12.24 3.09L11.15 5.68L4.79002 5.2V5.19Z"
                                     fill="var(--p-text-color)" />
                             </svg>
-                            <span class="font-semibold text-2xl text-primary">Your Logo</span>
+                            <span class="font-semibold text-2xl text-primary">Logo</span>
                         </span>
                         <span>
                             <Button type="button" @click="closeCallback" icon="pi pi-times" rounded outlined></Button>
@@ -23,16 +23,19 @@
                     <div class="overflow-y-auto">
                         <ul class="list-none p-4 m-0">
                             <li>
-                                <div v-ripple v-styleclass="{
-                                    selector: '@next',
-                                    enterFromClass: 'hidden',
-                                    enterActiveClass: 'animate-slidedown',
-                                    leaveToClass: 'hidden',
-                                    leaveActiveClass: 'animate-slideup'
-                                }"
+                                <div v-ripple
+                                    @click="toggleDropdown('main')"
+                                    v-styleclass="{
+                                        selector: '@next',
+                                        enterFromClass: 'hidden',
+                                        enterActiveClass: 'animate-slidedown',
+                                        leaveToClass: 'hidden',
+                                        leaveActiveClass: 'animate-slideup'
+                                    }"
                                     class="p-4 flex items-center justify-between text-surface-500 dark:text-surface-400 cursor-pointer p-ripple">
                                     <span class="font-medium">MAIN</span>
-                                    <i class="pi pi-chevron-down"></i>
+                                    <i class="pi pi-chevron-down"
+                                       :class="{'rotate-180 transition-transform': dropdowns.main, 'transition-transform': true}"></i>
                                 </div>
                                 <ul class="list-none p-0 m-0 overflow-hidden">
 
@@ -59,19 +62,22 @@
 
                                     <!-- Components -->
                                     <li>
-                                        <div v-ripple v-styleclass="{
-                                            selector: '@next',
-                                            enterFromClass: 'hidden',
-                                            enterActiveClass: 'animate-slidedown',
-                                            leaveToClass: 'hidden',
-                                            leaveActiveClass: 'animate-slideup'
-                                        }"
+                                        <div v-ripple
+                                            @click.stop="toggleDropdown('components')"
+                                            v-styleclass="{
+                                                selector: '@next',
+                                                enterFromClass: 'hidden',
+                                                enterActiveClass: 'animate-slidedown',
+                                                leaveToClass: 'hidden',
+                                                leaveActiveClass: 'animate-slideup'
+                                            }"
                                             class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
                                             <router-link to="/components">
                                                 <i class="pi pi-chart-line mr-2"></i>
                                                 <span class="font-medium">Components</span>
                                             </router-link>
-                                            <i class="pi pi-chevron-down ml-auto"></i>
+                                            <i class="pi pi-chevron-down ml-auto"
+                                               :class="{'rotate-180 transition-transform': dropdowns.components, 'transition-transform': true}"></i>
                                         </div>
                                         <ul
                                             class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
@@ -94,13 +100,51 @@
                                                 </router-link>
                                             </li>
 
-                                            <!-- Line Chart -->
+                                            <!-- Charts -->
                                             <li>
-                                                <router-link to="/components/line-chart" v-ripple
+                                                <div v-ripple
+                                                    @click.stop="toggleDropdown('charts')"
+                                                    v-styleclass="{
+                                                        selector: '@next',
+                                                        enterFromClass: 'hidden',
+                                                        enterActiveClass: 'animate-slidedown',
+                                                        leaveToClass: 'hidden',
+                                                        leaveActiveClass: 'animate-slideup'
+                                                    }"
                                                     class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
-                                                    <i class="pi pi-chart-line mr-2"></i>
-                                                    <span class="font-medium">Line Chart</span>
-                                                </router-link>
+                                                    <router-link to="/components/charts">
+                                                        <i class="pi pi-chart-scatter mr-2"></i>
+                                                        <span class="font-medium">Charts</span>
+                                                    </router-link>
+                                                    <i class="pi pi-chevron-down ml-auto"
+                                                       :class="{'rotate-180 transition-transform': dropdowns.charts, 'transition-transform': true}"></i>
+                                                </div>
+                                                <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
+                                                    <!-- Column Chart -->
+                                                    <li>
+                                                        <router-link to="/components/charts/column-chart" v-ripple
+                                                            class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
+                                                            <i class="pi pi-chart-bar mr-2"></i>
+                                                            <span class="font-medium">Column Chart</span>
+                                                        </router-link>
+                                                    </li>
+                                                    <!-- Doughnut Chart -->
+                                                    <li>
+                                                        <router-link to="/components/charts/doughnut-chart" v-ripple
+                                                            class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
+                                                            <i class="pi pi-chart-pie mr-2"></i>
+                                                            <span class="font-medium">Doughnut Chart</span>
+                                                        </router-link>
+                                                    </li>
+                                                    <!-- Line Chart -->
+                                                    <li>
+                                                        <router-link to="/components/charts/line-chart" v-ripple
+                                                            class="flex items-center cursor-pointer p-4 rounded text-surface-700 hover:bg-surface-100 dark:text-surface-0 dark:hover:bg-surface-800 duration-150 transition-colors p-ripple">
+                                                            <i class="pi pi-chart-line mr-2"></i>
+                                                            <span class="font-medium">Line Chart</span>
+                                                        </router-link>
+                                                    </li>
+                                                </ul>
                                             </li>
 
                                             <!-- Scroll Animation -->
@@ -134,16 +178,19 @@
                         </ul>
                         <ul class="list-none p-4 m-0">
                             <li>
-                                <div v-ripple v-styleclass="{
-                                    selector: '@next',
-                                    enterFromClass: 'hidden',
-                                    enterActiveClass: 'animate-slidedown',
-                                    leaveToClass: 'hidden',
-                                    leaveActiveClass: 'animate-slideup'
-                                }"
+                                <div v-ripple
+                                    @click="toggleDropdown('application')"
+                                    v-styleclass="{
+                                        selector: '@next',
+                                        enterFromClass: 'hidden',
+                                        enterActiveClass: 'animate-slidedown',
+                                        leaveToClass: 'hidden',
+                                        leaveActiveClass: 'animate-slideup'
+                                    }"
                                     class="p-4 flex items-center justify-between text-surface-500 dark:text-surface-400 cursor-pointer p-ripple">
                                     <span class="font-medium">APPLICATION</span>
-                                    <i class="pi pi-chevron-down"></i>
+                                    <i class="pi pi-chevron-down"
+                                       :class="{'rotate-180 transition-transform': dropdowns.application, 'transition-transform': true}"></i>
                                 </div>
                             </li>
                         </ul>
@@ -156,8 +203,8 @@
                         <span class="font-bold">Name</span>
                     </a>
                 </div>
+                <ThemeSwitcher />
             </div>
-            <ThemeSwitcher />
         </template>
         </Drawer>
         <Button icon="pi pi-bars" class="top-0" @click="sidebarVisible = true" />
@@ -168,9 +215,30 @@
 
 <script setup>
 import SignInModal from "./SignInModal.vue";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import ThemeSwitcher from "./ThemeSwitcher.vue";
 
 const sidebarVisible = ref(false);
 const signInModalVisible = ref(false);
+
+// States for dropdowns
+const dropdowns = reactive({
+    main: false,
+    components: false,
+    charts: false,
+    application: false,
+});
+
+function toggleDropdown(name) {
+    dropdowns[name] = !dropdowns[name];
+}
 </script>
+
+<style scoped>
+.rotate-180 {
+    transform: rotate(180deg);
+}
+.transition-transform {
+    transition: transform 0.3s;
+}
+</style>

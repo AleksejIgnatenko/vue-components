@@ -8,7 +8,6 @@
                 </div>
             </div>
 
-            <!-- Компоненты в строку -->
             <div class="flex flex-wrap justify-center gap-8">
 
                 <!-- Table -->
@@ -40,8 +39,8 @@
                     </div>
                 </router-link>
 
-                <!-- Line Chart -->
-                <router-link to="/components/line-chart">
+                <!-- Charts -->
+                <router-link to="/components/charts">
                     <div class="w-full sm:w-auto rounded-md p-4 max-w-xs">
                         <span
                             class="mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-800 shadow mx-auto">
@@ -49,7 +48,7 @@
                         </span>
                         <div class="flex flex-col gap-1">
                             <div class="text-surface-900 dark:text-surface-0 text-xl font-medium leading-tight">
-                                Line Chart
+                                Charts
                             </div>
                         </div>
                     </div>

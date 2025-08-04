@@ -1,5 +1,4 @@
 <template>
-    
     <div class="flex flex-col w-full min-w-0 items-center justify-center space-y-2 pt-2">
         <div
             class="w-full p-1 flex justify-center"
@@ -20,12 +19,14 @@
                         leaveToClass: 'hidden',
                         leaveActiveClass: 'animate-fadeout',
                         hideOnOutsideClick: true,
+                        // Добавляем свойство для начального состояния (закрыто)
+                        initialState: 'hidden'
                     }" type="button"
                         class="inline-flex w-8 h-8 p-0 items-center justify-center surface-0 dark:surface-800 rounded transition duration-200 hover:bg-gray-200 dark:hover:bg-surface-700 group">
                         <i class="pi pi-palette dark:text-white transition duration-200 group-hover:scale-110 group-hover:text-primary"></i>
                     </button>
                     <div
-                        class="absolute bottom-[2rem] left-1/2 min-w-[12rem] max-w-[100vw] p-2 bg-white dark:bg-surface-800 rounded-t-md shadow flex-col justify-start items-start gap-2.5 inline-flex origin-bottom z-10"
+                        class="absolute bottom-[2rem] left-1/2 min-w-[12rem] max-w-[100vw] p-2 bg-white dark:bg-surface-800 rounded-t-md shadow flex-col justify-start items-start gap-2.5 inline-flex origin-bottom z-10 hidden"
                         style="box-sizing: border-box;">
                         <div class="flex-col justify-start items-start gap-1 inline-flex pr-1 w-full">
                             <span class="text-sm font-medium">Primary Colors</span>
@@ -89,6 +90,7 @@ const presets = {
     Lara,
     Nora,
 };
+
 export default {
     data() {
         return {
